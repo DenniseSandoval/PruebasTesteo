@@ -58,7 +58,7 @@ public class Cliente {
             do {
                 st = (String) bufferDeEntrada.readUTF();
                 mostrarTexto("\n Servidor ==> " + st);
-                System.out.println("\n[Usted] -> ");
+                System.out.print("\n[Usted] -> ");
             } while (!st.equals(COMANDO_TERMINACION));
         } catch (IOException e) {
             cerrarConexion();

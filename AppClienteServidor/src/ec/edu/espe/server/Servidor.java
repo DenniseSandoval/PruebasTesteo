@@ -29,7 +29,7 @@ public class Servidor {
         try {
             serverSocket = new ServerSocket(puerto);
             mostrarTexto("Esperando conexion entrante del puerto" + String.valueOf(puerto) + "...");
-            socket = serverSocket.accept();
+            socket = serverSocket.accept();//Accept comienza el socket y espera una conexión desde un cliente
             mostrarTexto("Conexion establecida con " + socket.getInetAddress() + "...");
         } catch (IOException e) {
             mostrarTexto("Error al realizar la Conexion" + e.getMessage());
@@ -41,12 +41,13 @@ public class Servidor {
         try {
             bufferDeEntrada = new DataInputStream(socket.getInputStream());
             bufferDeSalida = new DataOutputStream(socket.getOutputStream());
+            //Se obtiene el flujo(datos) de salida del cliente para enviarle mensajes
             bufferDeSalida.flush();
         } catch (IOException ex) {
             mostrarTexto("Error al realizar apertura de flujo" + ex.getMessage());
         }
     }
-public void contarCaracteres(String cadena){
+/*public void contarCaracteres(String cadena){
 
     char [] Arraycadena ;
     char caracter;
@@ -64,15 +65,16 @@ public void contarCaracteres(String cadena){
         if(car[i])
             System.out.println("  "+(char) i +"="+contador[i]+".");
     }
-}
+}*/
     public void recibirDatos() {
         String st = "";
         try {
             do {
                 st = (String) bufferDeEntrada.readUTF();
+                //Se lee mensaje de cliente usando su flujo de entrada
                 mostrarTexto("\n Cliente ==> " + st);
-                System.out.println("\n[Usted] -> ");
-                contarCaracteres(st);
+                System.out.print("\n[Usted] -> ");
+                //contarCaracteres(st);
             } while (!st.equals(COMANDO_TERMINACION));
             
         } catch (IOException e) {
@@ -84,6 +86,7 @@ public void contarCaracteres(String cadena){
     public void enviar(String s) {
         try {
             bufferDeSalida.writeUTF(s);
+            //Se le envía un mensaje al cliente usando su flujo de salida
             bufferDeSalida.flush();
         } catch (IOException e) {
             mostrarTexto("Error al realizar apertura de flujo" + e.getMessage());
