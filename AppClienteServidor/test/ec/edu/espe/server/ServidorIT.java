@@ -129,7 +129,7 @@ public class ServidorIT {
     @Test
     public void testEjecutarConexion() {
         System.out.println("ejecutarConexion");
-        int puerto = 0;
+        int puerto = 5050;
         Servidor instance = new Servidor();
         instance.ejecutarConexion(puerto);
         // TODO review the generated test code and remove the default call to fail.

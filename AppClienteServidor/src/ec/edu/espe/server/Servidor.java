@@ -75,6 +75,7 @@ public class Servidor {
                 mostrarTexto("\n Cliente ==> " + st);
                 System.out.print("\n[Usted] -> ");
                 //contarCaracteres(st);
+                enviar("recibido");
             } while (!st.equals(COMANDO_TERMINACION));
             
         } catch (IOException e) {
@@ -85,7 +86,7 @@ public class Servidor {
 
     public void enviar(String s) {
         try {
-            bufferDeSalida.writeUTF(s);
+            bufferDeSalida.writeUTF("Respuesta: "+s);
             //Se le envía un mensaje al cliente usando su flujo de salida
             bufferDeSalida.flush();
         } catch (IOException e) {

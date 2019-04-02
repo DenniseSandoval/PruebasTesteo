@@ -45,7 +45,7 @@ public class Cliente {
 
     public void enviar(String s) {
         try {
-            bufferDeSalida.writeUTF(s);
+            bufferDeSalida.writeUTF("Pregunta: " + s);
             bufferDeSalida.flush();
         } catch (IOException e) {
             mostrarTexto("Error al realizar apertura de flujo" + e.getMessage());
@@ -59,7 +59,8 @@ public class Cliente {
                 st = (String) bufferDeEntrada.readUTF();
                 mostrarTexto("\n Servidor ==> " + st);
                 System.out.print("\n[Usted] -> ");
-            } while (!st.equals(COMANDO_TERMINACION));
+
+            } while (!st.equals(COMANDO_TERMINACION)||st==null);
         } catch (IOException e) {
             cerrarConexion();
         }
@@ -70,13 +71,11 @@ public class Cliente {
     }
 
     public void escribirDatos() {
-        String entrada = "";
+
         while (true) {
-            System.out.print("[Usted] -> ");
+            //System.out.print("[Usted] -> ");
             enviar(teclado.nextLine());
-            if (entrada.length() == 0) {
-                enviar(entrada);
-            }
+
         }
     }
 

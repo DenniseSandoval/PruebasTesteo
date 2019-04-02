@@ -5,12 +5,18 @@
  */
 package ec.edu.espe.modelo;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.Scanner;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 
 /**
  *
@@ -46,11 +52,11 @@ public class ClienteIT {
         String ip = "localhost";
         int puerto = 5050;
         Cliente instance = new Cliente();
-        instance.realizarConexion(ip, puerto);
+        instance.realizarConexion(ip, puerto);        
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-
+    
     /**
      * Test of flujoDatos method, of class Cliente.
      */
@@ -58,6 +64,7 @@ public class ClienteIT {
     public void testFlujoDatos() {
         System.out.println("flujoDatos");
         Cliente instance = new Cliente();
+        instance.realizarConexion("localhost", 5050);
         instance.flujoDatos();
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -71,6 +78,8 @@ public class ClienteIT {
         System.out.println("enviar");
         String s = "Hi";
         Cliente instance = new Cliente();
+        instance.realizarConexion("localhost", 5050);
+        instance.flujoDatos();        
         instance.enviar(s);
         // TODO review the generated test code and remove the default call to fail.
        //fail("The test case is a prototype.");
@@ -80,10 +89,15 @@ public class ClienteIT {
      * Test of recibirDatos method, of class Cliente.
      */
     @Test
-    public void testRecibirDatos() {
-        System.out.println("recibirDatos");
-        Cliente instance = new Cliente();
-        instance.recibirDatos();
+    public void testRecibirDatos() throws IOException {
+        System.out.println("recibirDatos");  
+        String s = "Hi";
+        Cliente instance = new Cliente();       
+        DataOutputStream bufferDeSalida= null;
+        instance.realizarConexion("localhost", 5050);
+        instance.flujoDatos(); 
+//        instance.recibirDatos();
+//        instance.cerrarConexion();
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -106,8 +120,13 @@ public class ClienteIT {
     @Test
     public void testEscribirDatos() {
         System.out.println("escribirDatos");
+        String ip = "localhost";
+        int puerto = 5050;
         Cliente instance = new Cliente();
-        instance.escribirDatos();
+        Scanner teclado = new Scanner(System.in);
+        instance.ejecutarConexion(ip, puerto);      
+        //instance.escribirdatos();
+        
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -130,24 +149,28 @@ public class ClienteIT {
     @Test
     public void testEjecutarConexion() {
         System.out.println("ejecutarConexion");
-        String ip = "";
-        int puerto = 0;
+        String ip = "localhost";
+        int puerto = 5050;
         Cliente instance = new Cliente();
         instance.ejecutarConexion(ip, puerto);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of main method, of class Cliente.
-     */
-    @Test
-    public void testMain() throws Exception {
-        System.out.println("main");
-        String[] args = null;
-        Cliente.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
+//    /**
+//     * Test of main method, of class Cliente.
+//     */
+//    @Test
+//    public void testMain() throws Exception {
+//        System.out.println("main");        
+//        String[] args =null;        
+//        Cliente.main(args);
+//        Scanner sc= new Scanner(System.in);
+//        String ip="localhost";
+//        String puerto ="5050";
+//        
+//        // TODO review the generated test code and remove the default call to fail.
+//        //fail("The test case is a prototype.");
+//    }
     
 }
